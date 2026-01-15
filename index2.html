@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현숙's 필라테스 - 맞춤형 홈트레이닝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Theme Colors: Pure White & Soft Pink */
+            --bg-color: #FFFFFF;
+            --primary-pink: #FF80AB;
+            /* Main Brand Color */
+            --primary-light: #FCE4EC;
+            /* Soft Backgrounds */
+            --text-dark: #424242;
+            /* Charcoal Gray */
+            --text-light: #757575;
+            /* Medium Gray */
+
+            /* Shadows */
+            --card-shadow: 0 10px 25px rgba(255, 128, 171, 0.15);
+            --hover-shadow: 0 15px 35px rgba(255, 128, 171, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', 'Gowun Dodum', 'Apple SD Gothic Neo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-weight: 800;
+            font-size: 2.4rem;
+            color: #212121;
+            letter-spacing: -1px;
+        }
+
+        .brand-name {
+            color: #212121;
+        }
+
+        .brand-point {
+            color: var(--primary-pink);
+        }
+
+        /* Search Section */
+        .search-area {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #searchInput {
+            padding: 16px 24px;
+            border: 2px solid #EEEEEE;
+            background-color: #FAFAFA;
+            border-radius: 30px;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        #searchInput:focus {
+            border-color: var(--primary-pink);
+            background-color: #FFF;
+            box-shadow: 0 0 0 4px rgba(255, 128, 171, 0.1);
+        }
+
+        #searchBtn {
+            padding: 0 24px;
+            border: none;
+            background: var(--primary-pink);
+            border-radius: 30px;
+            cursor: pointer;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(255, 128, 171, 0.4);
+            white-space: nowrap;
+        }
+
+        #searchBtn:hover {
+            background-color: #F06292;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 128, 171, 0.5);
+        }
+
+        #resetBtn {
+            padding: 5px 15px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-decoration: underline;
+        }
+
+        #resetBtn:hover {
+            color: var(--primary-pink);
+        }
+
+        .search-feedback {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background-color: var(--primary-light);
+            color: #880E4F;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* --- Tags --- */
+        .tags-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tag-btn {
+            background: #FFF;
+            border: 1px solid #EEE;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .tag-btn:hover,
+        .tag-btn.active {
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Active Tag Colors */
+        .tag-btn.tag-body.active {
+            background-color: #E3F2FD;
+            color: #1565C0;
+            border-color: #90CAF9;
+        }
+
+        .tag-btn.tag-purpose.active {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border-color: #A5D6A7;
+        }
+
+        .tag-btn.tag-difficulty.active {
+            background-color: #FCE4EC;
+            color: #C2185B;
+            border-color: #F48FB1;
+        }
+
+        /* --- Controls --- */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .view-filters-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .view-btn {
+            padding: 8px 18px;
+            border: 1px solid #EEE;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background-color: var(--text-dark);
+            color: white;
+            border-color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-filters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-trigger {
+            background: white;
+            border: 2px solid #EEE;
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            font-weight: 700;
+        }
+
+        .filter-trigger.active {
+            border-color: var(--primary-pink);
+            background-color: var(--primary-light);
+            color: #C2185B;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sort-btn {
+            background: white;
+            border: 1px solid #EEE;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 8px 14px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .sort-btn.active {
+            background-color: var(--primary-pink);
+            color: white;
+            border-color: var(--primary-pink);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(255, 128, 171, 0.4);
+        }
+
+        /* --- Video Cards --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .thumbnail {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-weight: 600;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-card:hover .thumbnail img {
+            transform: scale(1.1);
+        }
+
+        /* Skeleton Loader */
+        .skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #ddd;
+            z-index: 2;
+        }
+
+        .like-btn.liked {
+            color: #FF4081;
+        }
+
+        .card-info {
+            padding: 18px;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            height: 44px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #9E9E9E;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            height: 24px;
+            overflow: hidden;
+        }
+
+        .card-tag {
+            background-color: #FAFAFA;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: #757575;
+            border: 1px solid #EEE;
+        }
+
+        .complete-btn {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(255, 128, 171, 0.3);
+        }
+
+        /* --- Dashboard --- */
+        .dashboard-container {
+            background-color: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #FAFAFA;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .history-more-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .history-more-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-pink);
+        }
+
+        .dashboard-summary {
+            background: linear-gradient(135deg, #FCE4EC 0%, #FFF0F5 100%);
+            color: #C2185B;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .workout-list {
+            list-style: none;
+        }
+
+        .workout-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 10px;
+            border-bottom: 1px solid #FAFAFA;
+        }
+
+        .workout-num {
+            background: #E0E0E0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .workout-time {
+            color: var(--primary-pink);
+            font-weight: 800;
+        }
+
+        /* --- Calendar UI --- */
+        .calendar-wrapper {
+            background: #fff;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #F5F5F5;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .calendar-month-year {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .nav-btn {
+            background: #F5F5F5;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary-pink);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .weekday {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #9E9E9E;
+            padding-bottom: 8px;
+        }
+
+        /* Sun=Red, Sat=Blue */
+        .weekday:nth-child(1) {
+            color: #FF5252;
+        }
+
+        .weekday:nth-child(7) {
+            color: #448AFF;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .calendar-day:hover:not(.empty-day) {
+            background: var(--primary-light);
+            color: var(--primary-pink);
+        }
+
+        .calendar-day.today {
+            background: #f0f0f0;
+            font-weight: 800;
+        }
+
+        .calendar-day.selected {
+            background: var(--primary-pink) !important;
+            color: white !important;
+            box-shadow: 0 4px 8px rgba(255, 128, 171, 0.4);
+        }
+
+        .calendar-day.has-log::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary-pink);
+            border-radius: 50%;
+        }
+
+        .calendar-day.selected.has-log::after {
+            background-color: white;
+        }
+
+        .empty-day {
+            cursor: default;
+        }
+
+        /* --- Modal & History List --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            width: 95%;
+            max-width: 440px;
+            max-height: 90vh;
+            margin: 20px auto;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(30px);
+            transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #F9F9F9;
+        }
+
+        .close-btn {
+            background: #F5F5F5;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-top: 5px;
+        }
+
+        .daily-detail-header {
+            padding: 10px 15px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            color: #C2185B;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 10px;
+            border-bottom: 1px solid #F9F9F9;
+            font-size: 0.85rem;
+        }
+
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 30px 30px 0 0;
+            padding: 25px;
+            z-index: 1001;
+            transition: bottom 0.4s ease;
+        }
+
+        .bottom-sheet.active {
+            bottom: 0;
+        }
+
+        .sheet-option {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .sheet-option.selected {
+            background: var(--primary-light);
+            color: var(--primary-pink);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <span class="brand-name">현숙's</span>
+                <span class="brand-point">필라테스</span>
+            </h1>
+            <div class="search-area">
+                <form class="search-container" id="searchForm">
+                    <input type="text" id="searchInput" placeholder="어깨, 허리 15분...">
+                    <button type="submit" id="searchBtn">🔍 검색</button>
+                </form>
+                <div style="text-align: center;">
+                    <button type="button" id="resetBtn">🔄 필터 조건 초기화</button>
+                </div>
+                <div id="searchFeedback" class="search-feedback"></div>
+            </div>
+            <div class="tags-container" id="tagButtons"></div>
+        </header>
+
+        <main>
+            <div class="controls-wrapper">
+                <div class="view-filters-container">
+                    <button class="view-btn active" data-view="all">🏠 전체</button>
+                    <button class="view-btn" data-view="saved">💖 저장한 동영상</button>
+                    <button class="view-btn" data-view="history">🕒 내가 본 동영상</button>
+                </div>
+                <div class="main-filters-container">
+                    <button id="durationTrigger" class="filter-trigger">
+                        <span>⏱️ 영상길이</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="sort-options" style="display:flex; gap:12px; justify-content: flex-end;">
+                        <button id="sortAllBtn" class="sort-btn active">🔄 기본순</button>
+                        <button id="sortViewsBtn" class="sort-btn">👁️ 조회수순</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="videoGrid" class="video-grid"></div>
+
+            <section id="dashboard" class="dashboard-container">
+                <div class="dashboard-header">
+                    <h2 class="dashboard-title">📅 오늘의 운동 기록</h2>
+                    <button id="historyMoreBtn" class="history-more-btn">더보기 ></button>
+                </div>
+                <div class="dashboard-summary">
+                    오늘 총 <span id="totalTime">0</span>분 운동하셨어요! 🔥
+                </div>
+                <ul id="workoutList" class="workout-list"></ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bottom Sheet -->
+    <div id="backdrop" class="backdrop"></div>
+    <div id="bottomSheet" class="bottom-sheet">
+        <div style="font-weight:700; text-align:center; margin-bottom:20px;">영상 길이 선택</div>
+        <ul style="list-style:none;">
+            <li class="sheet-option selected" data-value="all">전체</li>
+            <li class="sheet-option" data-value="short">짧게 (5~15분)</li>
+            <li class="sheet-option" data-value="medium">중간 (15~30분)</li>
+            <li class="sheet-option" data-value="long">길게 (30분+)</li>
+        </ul>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="font-size:1.2rem; font-weight:800;">📅 운동 캘린더</h2>
+                <button id="closeHistoryBtn" class="close-btn">×</button>
+            </div>
+
+            <div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="nav-btn">◀</button>
+                    <div id="calendarTitle" class="calendar-month-year"></div>
+                    <button id="nextMonth" class="nav-btn">▶</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <div id="historyListContainer" class="history-list-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const videos = [
+            { id: 1, title: "거북목 탈출! 하루 10분 목 스트레칭", youtubeId: "Mtd0QotdlWo", tags: ["목", "스트레칭", "초보"], duration: 14, date: "2024-01-05", thumbnail: "https://img.youtube.com/vi/Mtd0QotdlWo/maxresdefault.jpg" },
+            { id: 2, title: "퇴근 후 굳은 어깨 풀어주기", youtubeId: "nOGT4lXlSHw", tags: ["어깨", "상체", "스트레칭", "초보"], duration: 17, date: "2024-01-08", thumbnail: "https://img.youtube.com/vi/nOGT4lXlSHw/maxresdefault.jpg" },
+            { id: 3, title: "허리 통증 완화 코어 운동", youtubeId: "jw1gxrzRgeU", tags: ["허리", "코어", "중급"], duration: 24, date: "2023-12-28", thumbnail: "https://img.youtube.com/vi/jw1gxrzRgeU/maxresdefault.jpg" },
+            { id: 4, title: "아침을 여는 5분 전신 순환 요가", youtubeId: "x8lFFXFuZ9U", tags: ["전신", "스트레칭", "초보"], duration: 6, date: "2024-01-10", thumbnail: "https://img.youtube.com/vi/x8lFFXFuZ9U/maxresdefault.jpg" },
+            { id: 5, title: "자기 전 골반 교정 스트레칭", youtubeId: "8VtkpMGw0hw", tags: ["골반", "스트레칭", "초보"], duration: 10, date: "2024-01-01", thumbnail: "https://img.youtube.com/vi/8VtkpMGw0hw/maxresdefault.jpg" },
+            { id: 6, title: "강력한 복근 만들기 20분 루틴", youtubeId: "D-O-HWyPVrE", tags: ["복부", "코어", "중급"], duration: 21, date: "2023-11-15", thumbnail: "https://img.youtube.com/vi/D-O-HWyPVrE/maxresdefault.jpg" },
+            { id: 7, title: "하루 30분 고강도 전신 태우기", youtubeId: "pGpnulkC5z8", tags: ["전신", "코어", "고급"], duration: 33, date: "2023-10-10", thumbnail: "https://img.youtube.com/vi/pGpnulkC5z8/maxresdefault.jpg" },
+            { id: 8, title: "손목 터널 증후군 예방 체조", youtubeId: "bHPYSJv23ag", tags: ["손목", "스트레칭", "초보"], duration: 7, date: "2024-01-12", thumbnail: "https://img.youtube.com/vi/bHPYSJv23ag/maxresdefault.jpg" },
+            { id: 9, title: "무릎 강화 런지 & 스쿼트", youtubeId: "pDFuLG0xrsU", tags: ["무릎", "코어", "중급"], duration: 16, date: "2023-12-05", thumbnail: "https://img.youtube.com/vi/pDFuLG0xrsU/maxresdefault.jpg" },
+            { id: 10, title: "상급자를 위한 밸런스 요가", youtubeId: "kuBHRSJBlSY", tags: ["전신", "코어", "고급"], duration: 41, date: "2023-09-20", thumbnail: "https://img.youtube.com/vi/kuBHRSJBlSY/maxresdefault.jpg" }
+        ];
+
+        const tagCategories = [
+            { name: '신체', class: 'tag-body', tags: ['목', '허리', '어깨', '골반', '무릎', '손목', '전신', '복부'] },
+            { name: '목적', class: 'tag-purpose', tags: ['코어', '스트레칭'] },
+            { name: '난이도', class: 'tag-difficulty', tags: ['초보', '중급', '고급'] }
+        ];
+
+        const synonyms = {
+            '다리': ['무릎', '골반', '하체', '전신'],
+            '하체': ['무릎', '골반', '다리', '전신'],
+            '배': ['복부', '코어'],
+            '복근': ['복부', '코어'],
+            '팔': ['손목', '어깨', '상체'],
+            '상체': ['목', '어깨', '팔', '손목'],
+            '전신': ['전신', '유산소']
+        };
+
+        // State
+        let currentVideos = [...videos];
+        let activeTag = null;
+        let sortMode = 'all';
+        let durationFilter = 'all';
+        let viewMode = 'all';
+        let savedVideos = new Set();
+        let watchHistory = JSON.parse(localStorage.getItem('pilates_history')) || [];
+        let videoViews = JSON.parse(localStorage.getItem('pilates_video_views')) || {};
+        let workoutLogs = JSON.parse(localStorage.getItem('pilates_logs')) || [];
+
+        // Seed initial views if not exists
+        videos.forEach(v => {
+            if (videoViews[v.id] === undefined) videoViews[v.id] = 0;
+        });
+
+        // Calendar State
+        let currentViewDate = new Date(); // Month being viewed
+        let selectedDateString = new Date().toLocaleDateString(); // Currently selected date in detail
+
+        // Elements
+        const gridEl = document.getElementById('videoGrid');
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+        const tagButtonsEl = document.getElementById('tagButtons');
+        const resetBtn = document.getElementById('resetBtn');
+        const totalTimeEl = document.getElementById('totalTime');
+        const workoutListEl = document.getElementById('workoutList');
+        const historyModal = document.getElementById('historyModal');
+        const historyListContainer = document.getElementById('historyListContainer');
+        const calendarGrid = document.getElementById('calendarGrid');
+        const calendarTitle = document.getElementById('calendarTitle');
+
+        // Initial Calls
+        renderTags();
+        applyFilters();
+        renderDashboard();
+
+        // --- Functions ---
+        function renderTags() {
+            tagCategories.forEach(cat => {
+                cat.tags.forEach(tag => {
+                    const btn = document.createElement('button');
+                    btn.className = `tag-btn ${cat.class}`;
+                    btn.textContent = `#${tag}`;
+                    btn.onclick = () => {
+                        activeTag = (activeTag === tag) ? null : tag;
+                        document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+                        if (activeTag) btn.classList.add('active');
+                        applyFilters();
+                    };
+                    tagButtonsEl.appendChild(btn);
+                });
+            });
+        }
+
+        function applyFilters() {
+            let filtered = [...videos];
+            const query = searchInput.value.toLowerCase().trim();
+            const feedbackEl = document.getElementById('searchFeedback');
+
+            if (query) {
+                // 1. Extract Duration (Regex)
+                const durationMatch = query.match(/(\d+)/);
+                const targetMin = durationMatch ? parseInt(durationMatch[1]) : null;
+
+                // 2. Extract Body Keywords
+                const bodyKeywords = ['목', '허리', '어깨', '골반', '무릎', '손목', '전신', '복부', '복근', '다리', '하체', '배', '팔', '상체'];
+                let foundBodyParts = [];
+                bodyKeywords.forEach(k => {
+                    if (query.includes(k)) foundBodyParts.push(k);
+                });
+
+                // 3. Smart Filtering & Scoring
+                filtered = filtered.map(v => {
+                    let bodyScore = 0;
+                    let timeScore = 0;
+
+                    // Body Match check (direct or synonyms)
+                    const matchesKeyword = foundBodyParts.some(k => {
+                        if (v.title.includes(k) || v.tags.some(t => t.includes(k))) return true;
+                        // Synonym check
+                        for (let synKey in synonyms) {
+                            if (synKey.includes(k) && v.tags.some(t => synonyms[synKey].includes(t))) return true;
+                        }
+                        return false;
+                    });
+                    if (matchesKeyword) bodyScore = 1;
+
+                    // Time Match check (±5 min)
+                    if (targetMin && Math.abs(v.duration - targetMin) <= 5) timeScore = 1;
+
+                    return { ...v, matchScore: bodyScore + timeScore, bodyMatch: bodyScore > 0, timeMatch: timeScore > 0 };
+                });
+
+                // Filter out non-matches, then sort by score
+                filtered = filtered.filter(v => v.matchScore > 0);
+                filtered.sort((a, b) => b.matchScore - a.matchScore);
+
+                // 4. Update Feedback UI
+                if (foundBodyParts.length > 0 || targetMin) {
+                    let feedbackText = "";
+                    if (foundBodyParts.length > 0 && targetMin) {
+                        feedbackText = `<strong>'${foundBodyParts.join(', ')}'</strong> 부위의 <strong>'${targetMin}분'</strong> 내외 운동 검색 결과입니다.`;
+                    } else if (foundBodyParts.length > 0) {
+                        feedbackText = `<strong>'${foundBodyParts.join(', ')}'</strong> 부위 운동 검색 결과입니다.`;
+                    } else {
+                        feedbackText = `<strong>'${targetMin}분'</strong> 내외 운동 검색 결과입니다.`;
+                    }
+                    feedbackEl.innerHTML = feedbackText;
+                    feedbackEl.style.display = 'block';
+                } else {
+                    feedbackEl.style.display = 'none';
+                }
+            } else {
+                feedbackEl.style.display = 'none';
+            }
+
+            if (activeTag) filtered = filtered.filter(v => v.tags.includes(activeTag));
+            if (viewMode === 'saved') filtered = filtered.filter(v => savedVideos.has(v.id));
+            if (viewMode === 'history') filtered = filtered.filter(v => (JSON.parse(localStorage.getItem('pilates_history')) || []).includes(v.id));
+
+            if (durationFilter === 'short') filtered = filtered.filter(v => v.duration <= 15);
+            else if (durationFilter === 'medium') filtered = filtered.filter(v => v.duration > 15 && v.duration <= 30);
+            else if (durationFilter === 'long') filtered = filtered.filter(v => v.duration > 30);
+
+            if (sortMode === 'views') filtered.sort((a, b) => (videoViews[b.id] || 0) - (videoViews[a.id] || 0));
+
+            currentVideos = filtered;
+            renderGrid();
+        }
+
+        function renderGrid() {
+            gridEl.innerHTML = '';
+            if (currentVideos.length === 0) {
+                gridEl.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#9E9E9E;">검색 결과가 없습니다.</div>';
+                return;
+            }
+            currentVideos.forEach(v => {
+                const isSaved = savedVideos.has(v.id);
+                const views = videoViews[v.id] || 0;
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => { incrementView(v.id); };
+                card.innerHTML = `
+                    <div class="thumbnail" style="background-color: var(--primary-light);">
+                        <div class="skeleton"></div>
+                        <img src="${v.thumbnail}" alt="${v.title}" 
+                            onload="this.previousElementSibling.style.display='none'"
+                            onerror="handleImageError(this)">
+                        <div class="fallback-ui" style="display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; background: var(--primary-light); color: var(--primary-pink); z-index:1;">
+                            <span style="font-size:3rem;">🧘</span>
+                        </div>
+                        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:white; font-size:2rem; opacity:0.8; z-index:2; pointer-events:none;">▶</div>
+                        <button class="like-btn ${isSaved ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLike(${v.id})">${isSaved ? '♥' : '♡'}</button>
+                        <div class="duration-badge">${v.duration}분</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">${v.title}</div>
+                        <div class="card-meta"><span style="color: var(--primary-pink); font-weight: 700;">조회수 ${views.toLocaleString()}회</span><span>${v.date}</span></div>
+                        <div class="card-tags">${v.tags.map(t => `<span class="card-tag">#${t}</span>`).join('')}</div>
+                        <div style="text-align:right;"><button class="complete-btn" onclick="event.stopPropagation(); logWorkout(${v.id})">✔ 오운완</button></div>
+                    </div>`;
+                gridEl.appendChild(card);
+            });
+        }
+
+        function incrementView(id) {
+            videoViews[id] = (videoViews[id] || 0) + 1;
+            localStorage.setItem('pilates_video_views', JSON.stringify(videoViews));
+
+            const video = videos.find(v => v.id === id);
+            if (video && video.youtubeId) {
+                // Play video in the modal layer
+                showVideoPlayer(video.youtubeId);
+            }
+
+            if (!watchHistory.includes(id)) {
+                watchHistory.unshift(id);
+                localStorage.setItem('pilates_history', JSON.stringify(watchHistory));
+            }
+            applyFilters();
+        }
+
+        function showVideoPlayer(youtubeId) {
+            let modal = document.getElementById('videoPlayerModal');
+            const isLocal = window.location.protocol === 'file:';
+
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'videoPlayerModal';
+                modal.className = 'modal-overlay';
+                modal.innerHTML = `
+                    <div class="modal-content" style="max-width: 800px; padding: 0; border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; position: relative; background: #000;">
+                        <button id="closePlayerBtn" class="close-btn" style="position: absolute; top: 15px; right: 15px; z-index: 20; background: rgba(255,255,255,0.9); width: 36px; height: 36px; border-radius: 50%; font-size: 20px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">×</button>
+                        
+                        <!-- Overlay for local file restriction -->
+                        <div id="localFileAlert" style="position: absolute; inset: 0; z-index: 15; background: rgba(0,0,0,0.85); display: none; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; padding: 20px;">
+                            <span style="font-size: 3rem; margin-bottom: 15px;">⚠️</span>
+                            <h3 style="margin-bottom: 10px; font-weight: 800;">현재 로컬 파일로 열려 있습니다</h3>
+                            <p style="font-size: 0.9rem; line-height: 1.6; color: #ccc; margin-bottom: 25px; max-width: 400px;">
+                                YouTube 보안 정책상 <strong>'파일(file://)'</strong> 형식에서는 플레이어 직접 재생이 제한될 수 있습니다 (오류 153).<br>
+                                아래 버튼을 눌러 YouTube 공식 사이트에서 편하게 시청해 보세요!
+                            </p>
+                            <a id="youtubeCenterLink" href="#" target="_blank" style="background: var(--primary-pink); color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 1rem; box-shadow: 0 4px 15px rgba(255, 128, 171, 0.4); transition: transform 0.2s;">
+                                📺 YouTube에서 시청하기
+                            </a>
+                        </div>
+
+                        <iframe id="youtubeIframe" width="100%" height="100%" src="" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen 
+                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                        
+                        <div id="playerFallback" style="position: absolute; bottom: 15px; left: 15px; z-index: 10;">
+                            <a id="youtubeDirectLink" href="#" target="_blank" style="background: rgba(0,0,0,0.6); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                                📺 YouTube에서 직접 보기
+                            </a>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                document.getElementById('closePlayerBtn').onclick = () => {
+                    modal.classList.remove('active');
+                    document.getElementById('youtubeIframe').src = "";
+                };
+                modal.onclick = (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.getElementById('youtubeIframe').src = "";
+                    }
+                };
+            }
+
+            // Update URLs
+            const watchUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
+            const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`;
+
+            document.getElementById('youtubeIframe').src = embedUrl;
+            document.getElementById('youtubeDirectLink').href = watchUrl;
+            document.getElementById('youtubeCenterLink').href = watchUrl;
+
+            // Show alert if running locally
+            document.getElementById('localFileAlert').style.display = isLocal ? 'flex' : 'none';
+
+            modal.classList.add('active');
+        }
+
+        function handleImageError(img) {
+            img.style.display = 'none';
+            img.previousElementSibling.style.display = 'none'; // skeleton
+            img.nextElementSibling.style.display = 'flex'; // fallback-ui
+        }
+
+        function toggleLike(id) {
+            if (savedVideos.has(id)) savedVideos.delete(id); else savedVideos.add(id);
+            renderGrid();
+        }
+
+        function logWorkout(id) {
+            const v = videos.find(x => x.id === id);
+            workoutLogs.push({ title: v.title, duration: v.duration, dateString: new Date().toLocaleDateString(), timestamp: Date.now() });
+            localStorage.setItem('pilates_logs', JSON.stringify(workoutLogs));
+            renderDashboard();
+            alert('기록 완료! 오늘도 수고하셨어요! 💪');
+        }
+
+        function renderDashboard() {
+            const today = new Date().toLocaleDateString();
+            const logs = workoutLogs.filter(l => l.dateString === today);
+            totalTimeEl.textContent = logs.reduce((s, x) => s + x.duration, 0);
+            workoutListEl.innerHTML = logs.length ? logs.map((l, i) => `<li class="workout-item"><div style="display:flex; gap:10px;"><span class="workout-num">${i + 1}</span><strong>${l.title}</strong></div><span class="workout-time">${l.duration}분</span></li>`).join('') : '<li style="text-align:center; color:#9E9E9E; padding:20px;">오늘의 운동을 시작해보세요!</li>';
+        }
+
+        // --- Calendar Logic ---
+        function renderCalendar() {
+            calendarGrid.innerHTML = '';
+            const year = currentViewDate.getFullYear();
+            const month = currentViewDate.getMonth();
+            calendarTitle.textContent = `${year}. ${String(month + 1).padStart(2, '0')}`;
+
+            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+            weekdays.forEach(d => {
+                const el = document.createElement('div');
+                el.className = 'weekday';
+                el.textContent = d;
+                calendarGrid.appendChild(el);
+            });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) {
+                const el = document.createElement('div');
+                el.className = 'calendar-day empty-day';
+                calendarGrid.appendChild(el);
+            }
+
+            for (let d = 1; d <= lastDate; d++) {
+                const dateObj = new Date(year, month, d);
+                const dStr = dateObj.toLocaleDateString();
+                const hasLog = workoutLogs.some(l => l.dateString === dStr);
+
+                const el = document.createElement('div');
+                el.className = `calendar-day ${hasLog ? 'has-log' : ''} ${dStr === selectedDateString ? 'selected' : ''} ${dStr === new Date().toLocaleDateString() ? 'today' : ''}`;
+                el.textContent = d;
+                el.onclick = () => {
+                    selectedDateString = dStr;
+                    renderCalendar();
+                    renderDailyDetail();
+                };
+                calendarGrid.appendChild(el);
+            }
+            renderDailyDetail();
+        }
+
+        function renderDailyDetail() {
+            const logs = workoutLogs.filter(l => l.dateString === selectedDateString);
+            const total = logs.reduce((s, x) => s + x.duration, 0);
+
+            historyListContainer.innerHTML = `
+                <div class="daily-detail-header">
+                    <span>${selectedDateString}</span>
+                    <span>총 ${total}분</span>
+                </div>
+                ${logs.length ? logs.map(l => `
+                    <div class="history-item">
+                        <span>${l.title}</span>
+                        <span style="font-weight:700; color:var(--primary-pink);">${l.duration}분</span>
+                    </div>
+                `).join('') : '<div style="text-align:center; padding:30px; color:#9E9E9E;">기록이 없습니다.</div>'}
+            `;
+        }
+
+        // Event Listeners
+        document.getElementById('historyMoreBtn').onclick = () => {
+            currentViewDate = new Date();
+            selectedDateString = new Date().toLocaleDateString();
+            historyModal.classList.add('active');
+            renderCalendar();
+        };
+
+        document.getElementById('closeHistoryBtn').onclick = () => historyModal.classList.remove('active');
+        document.getElementById('prevMonth').onclick = () => { currentViewDate.setMonth(currentViewDate.getMonth() - 1); renderCalendar(); };
+        document.getElementById('nextMonth').onclick = () => { currentViewDate.setMonth(currentViewDate.getMonth() + 1); renderCalendar(); };
+
+        document.querySelectorAll('.view-btn').forEach(btn => btn.onclick = () => {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            viewMode = btn.dataset.view;
+            applyFilters();
+        });
+
+        document.getElementById('sortAllBtn').onclick = () => { sortMode = 'all'; updateSortUI('sortAllBtn'); applyFilters(); };
+        document.getElementById('sortViewsBtn').onclick = () => { sortMode = 'views'; updateSortUI('sortViewsBtn'); applyFilters(); };
+
+        function updateSortUI(id) {
+            ['sortAllBtn', 'sortViewsBtn'].forEach(x => document.getElementById(x).classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        document.getElementById('durationTrigger').onclick = () => { document.getElementById('backdrop').classList.add('active'); document.getElementById('bottomSheet').classList.add('active'); };
+        document.getElementById('backdrop').onclick = () => { document.getElementById('backdrop').classList.remove('active'); document.getElementById('bottomSheet').classList.remove('active'); };
+        document.querySelectorAll('.sheet-option').forEach(opt => opt.onclick = () => {
+            durationFilter = opt.dataset.value;
+            document.querySelectorAll('.sheet-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            document.getElementById('durationTrigger').innerHTML = `<span>⏱️ ${opt.textContent}</span> <span>▼</span>`;
+            document.getElementById('backdrop').click();
+            applyFilters();
+        });
+
+        resetBtn.onclick = () => {
+            searchInput.value = '';
+            activeTag = null;
+            sortMode = 'all';
+            durationFilter = 'all';
+            viewMode = 'all';
+            document.querySelectorAll('.tag-btn, .view-btn, .sort-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.view-btn[data-view="all"]').classList.add('active');
+            document.getElementById('sortAllBtn').classList.add('active');
+            document.getElementById('durationTrigger').innerHTML = '<span>⏱️ 영상길이</span> <span>▼</span>';
+            applyFilters();
+        };
+
+        searchForm.onsubmit = (e) => { e.preventDefault(); applyFilters(); };
+        searchInput.oninput = applyFilters;
+    </script>
+</body>
+
+</html>
